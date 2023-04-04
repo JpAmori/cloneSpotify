@@ -8,12 +8,12 @@ export const appRoutes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'login',
-        loadChildren: () => import('./pages/login/login.module').then(x => x.LoginModule)
-    },
-    {
         path: 'player',
         loadChildren: () => import('./pages/player/player.module').then(x => x.PlayerModule),
         canLoad: [AuthenticatedGuard]
+    },
+    {
+        path: 'login',
+        loadChildren: () => import('./pages/login/login.module').then(x => x.LoginModule)
     }
 ]
