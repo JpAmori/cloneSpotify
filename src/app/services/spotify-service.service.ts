@@ -65,9 +65,10 @@ export class SpotifyServiceService {
   toDefineAcessToken(token: string){
     this.spotifyAPI.setAccessToken(token);
     localStorage.setItem('token', token);
+    this.spotifyAPI.skipToNext();
   }
 
-  async searchPlaylists(offset = 0, limit = 20): Promise<IPlaylist[]>{
+  async searchPlaylists(offset = 0, limit = 10): Promise<IPlaylist[]>{
     const playlists = await this.spotifyAPI.getUserPlaylists(this.user.id, { offset, limit });
     return playlists.items.map(SpotifyPlaylistforPlaylist);
   }
