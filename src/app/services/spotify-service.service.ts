@@ -4,6 +4,7 @@ import Spotify from 'spotify-web-api-js';
 import { IUser } from '../Interfaces/IUser';
 import { SpotifyPlaylistforPlaylist, SpotifyUserforUser } from '../Common/spotifyHelper';
 import { IPlaylist } from '../Interfaces/IPlaylist';
+import { Route, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,9 @@ export class SpotifyServiceService {
   spotifyAPI: Spotify.SpotifyWebApiJs = null;
   user: IUser;
 
-  constructor() {
+  constructor(private router: Router) {
     this.spotifyAPI = new Spotify();
+    
   }
 
   async initializeUser(){
@@ -65,11 +67,15 @@ export class SpotifyServiceService {
   toDefineAcessToken(token: string){
     this.spotifyAPI.setAccessToken(token);
     localStorage.setItem('token', token);
-    this.spotifyAPI.skipToNext();
   }
 
-  async searchPlaylists(offset = 0, limit = 10): Promise<IPlaylist[]>{
+  async searchPlaylists(offset = 0, limit = 25): Promise<IPlaylist[]>{
     const playlists = await this.spotifyAPI.getUserPlaylists(this.user.id, { offset, limit });
     return playlists.items.map(SpotifyPlaylistforPlaylist);
+  }
+
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['/login'])
   }
 }
