@@ -1,0 +1,16 @@
+<div class="card p-20">
+    <div class="artist">
+        <span class="title-bg">
+            {{ topArtist.name }}
+        </span>
+    </div>
+    <div class="image" 
+    [style.background-image]="'url(' + topArtist.imageUrl +')'">
+
+    </div>
+    <div class="button">
+        <button (click)="touchArtist()">
+            Play
+        </button>
+    </div>
+</div>

@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { SpotifyConfig } from 'src/environments/environment';
 import Spotify from 'spotify-web-api-js';
 import { IUser } from '../Interfaces/IUser';
-import { SpotifyPlaylistforPlaylist, SpotifyUserforUser } from '../Common/spotifyHelper';
+import { SpotifyArtistforArtist, SpotifyPlaylistforPlaylist, SpotifyTrackforTrack, SpotifyUserforUser } from '../Common/spotifyHelper';
 import { IPlaylist } from '../Interfaces/IPlaylist';
 import { Route, Router } from '@angular/router';
+import { IArstist } from '../Interfaces/IArtist';
+import { IMusic } from '../Interfaces/IMusic';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +76,24 @@ export class SpotifyServiceService {
     return playlists.items.map(SpotifyPlaylistforPlaylist);
   }
 
+  async searchTopArtists(limit = 5): Promise<IArstist[]>{
+    const artists = await this.spotifyAPI.getMyTopArtists({limit})
+    return artists.items.map(SpotifyArtistforArtist)
+  }
+
+  async searchMusics(offset = 0, limit = 50): Promise<IMusic[]>{
+    const music = await this.spotifyAPI.getMySavedTracks({offset, limit});
+    return music.items.map(x => SpotifyTrackforTrack(x.track))
+  }
+
+  async playMusic(musicId: string){
+    await this.spotifyAPI.queue(musicId);
+    this.spotifyAPI.skipToNext();
+  }
+
+  async playMusicforArtist(artistId: string){
+    await this.spotifyAPI.getArtistTopTracks
+  }
   logout(){
     localStorage.clear();
     this.router.navigate(['/login'])
