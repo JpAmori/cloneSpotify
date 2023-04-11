@@ -21,6 +21,7 @@ export class SpotifyServiceService {
     
   }
 
+  // Inicializando o Usuário  
   async initializeUser(){
     if(!!this.user)
       return true;
@@ -43,11 +44,13 @@ export class SpotifyServiceService {
     }
   }
 
+  // Obtendo os dados do Usuário
   async toObtainDadosUser(){
     const userInfo = await this.spotifyAPI.getMe();
     this.user = SpotifyUserforUser(userInfo);
   }
 
+  // Buscando a URL de Login
   toObtainURLLogin(){
     const authEndpoin = `${SpotifyConfig.authEndpoint}?`;
     const clientId = `client_id=${SpotifyConfig.clientId}&`;
@@ -58,6 +61,7 @@ export class SpotifyServiceService {
     return authEndpoin + clientId + redirectUrl + scopes + responseType; 
   }
 
+  // Retornando o Token
   toObtainTokenUrlCallback(){
     if(!window.location.hash)
       return '';
@@ -66,34 +70,49 @@ export class SpotifyServiceService {
     return params[0].split('=')[1];
   }
 
+  // Definindo o Tokem de acesso 
   toDefineAcessToken(token: string){
     this.spotifyAPI.setAccessToken(token);
     localStorage.setItem('token', token);
   }
 
+  // Buscando as playlists
   async searchPlaylists(offset = 0, limit = 25): Promise<IPlaylist[]>{
     const playlists = await this.spotifyAPI.getUserPlaylists(this.user.id, { offset, limit });
     return playlists.items.map(SpotifyPlaylistforPlaylist);
   }
 
+  // Buscando os melhores artistas
   async searchTopArtists(limit = 5): Promise<IArstist[]>{
     const artists = await this.spotifyAPI.getMyTopArtists({limit})
     return artists.items.map(SpotifyArtistforArtist)
   }
 
+  // Procurando as musicas curtidas
   async searchMusics(offset = 0, limit = 50): Promise<IMusic[]>{
     const music = await this.spotifyAPI.getMySavedTracks({offset, limit});
     return music.items.map(x => SpotifyTrackforTrack(x.track))
   }
 
+  // Dando play na musica 
   async playMusic(musicId: string){
     await this.spotifyAPI.queue(musicId);
     this.spotifyAPI.skipToNext();
   }
 
+  // Coletando as melhores musicas do artista
   async playMusicforArtist(artistId: string){
     await this.spotifyAPI.getArtistTopTracks
   }
+
+  // Coletando a musica atual do Spotify
+  async getCurrentMusic(): Promise<IMusic>{
+    const music = await this.spotifyAPI.getMyCurrentPlayingTrack(); 
+    
+    return SpotifyTrackforTrack(music.item)
+  }
+
+  // Saindo da Conta
   logout(){
     localStorage.clear();
     this.router.navigate(['/login'])

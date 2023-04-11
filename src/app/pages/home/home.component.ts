@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
+import { newMusic } from 'src/app/Common/factories';
 import { IMusic } from 'src/app/Interfaces/IMusic';
+import { PlayerServiceService } from 'src/app/services/player-service.service';
 import { SpotifyServiceService } from 'src/app/services/spotify-service.service';
 
 @Component({
@@ -8,17 +11,28 @@ import { SpotifyServiceService } from 'src/app/services/spotify-service.service'
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, OnDestroy{
 
-  musics: IMusic[] = []
+  musics: IMusic[] = [];
+  musicCurrent: IMusic = newMusic();
+
+  subscribes: Subscription[] = [];
 
   //Icons
   iconPlay = faPlay;
 
-  constructor(private spotifyService: SpotifyServiceService){}
+  constructor(
+    private spotifyService: SpotifyServiceService, 
+    private playerService: PlayerServiceService)
+    {}
 
   ngOnInit(): void {
-    this.searchMusics()  
+    this.searchMusics();
+    this.toObtainCurrentMusic();
+  }
+
+  ngOnDestroy(): void {
+    this.subscribes.forEach(sub => sub.unsubscribe())
   }
 
   async searchMusics(){
@@ -32,6 +46,15 @@ export class HomeComponent implements OnInit{
 
   async execMusic(music: IMusic){
     await this.spotifyService.playMusic(music.id)
+    this.playerService.toDefineCurrentMusic(music)
+  }
+
+  toObtainCurrentMusic(){
+    const sub = this.playerService.currentMusic.subscribe(music => {
+      this.musicCurrent = music;
+    });
+    
+    this.subscribes.push(sub);
   }
 
 }

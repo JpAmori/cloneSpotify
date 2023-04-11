@@ -13,7 +13,8 @@ $height-toDisregard: calc(($height-spotify-logo + 40px) + $height-menu-options +
     display: flex;
     flex-direction: column;
     background-color: $color-background2;
-    box-shadow: 1px 1px 15px #00000015;
+    box-shadow: 0px 0px 15px $black-transparent2;;
+    z-index: 1;
 
     .menus{
         flex-grow: 1;
@@ -76,6 +77,6 @@ $height-toDisregard: calc(($height-spotify-logo + 40px) + $height-menu-options +
         align-self: flex-end;
         height: $height-footer-user;
         width: 100%;
-        // box-shadow: 1px 1px 15px #00000015;       
+      
     }
 }
