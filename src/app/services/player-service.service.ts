@@ -32,4 +32,12 @@ export class PlayerServiceService {
   toDefineCurrentMusic(musicCurrent: IMusic){
     this.currentMusic.next(musicCurrent);
   }
+
+  async goBackMusics(){
+    await this.spotifyService.goBackMusic();
+  }
+
+  async goNextMusic(){
+    await this.spotifyService.goNextMusic();
+  }
 }

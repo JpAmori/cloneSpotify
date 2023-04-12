@@ -57,7 +57,7 @@ export class SpotifyServiceService {
     const redirectUrl = `redirect_uri=${SpotifyConfig.redirectUrl}&`;
     const scopes = `scope=${SpotifyConfig.scopes.join('%20')}&`;
     const responseType = `response_type=token&show_dialog=true`;
-
+    
     return authEndpoin + clientId + redirectUrl + scopes + responseType; 
   }
 
@@ -110,6 +110,21 @@ export class SpotifyServiceService {
     const music = await this.spotifyAPI.getMyCurrentPlayingTrack(); 
     
     return SpotifyTrackforTrack(music.item)
+  }
+
+  // Voltando a Musica
+  async goBackMusic(){
+    await this.spotifyAPI.skipToPrevious()
+  }
+
+  // Pulando para a Proxima musica
+  async goNextMusic(){
+    await this.spotifyAPI.skipToNext();
+  }
+
+  // Verificar se há musica tocando
+  async checkMusic(){
+    
   }
 
   // Saindo da Conta

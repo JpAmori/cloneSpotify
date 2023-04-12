@@ -1,14 +1,52 @@
 @import 'variables';
 
-.container{
-    width: 100%;
-    height: 100%;
-    max-width: 200px;
-    overflow: hidden;
+:host{
+    .tudo{
+        height: 100%;
+        .container{
+            height: 100%;
+            max-width: 230px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        
+            .image{
+                height: 70%;
+                background-position: top;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
 
-    .image{
-        height: 65%;
-        background-position: top;
-        background-size: cover;
+            .controls{
+                padding: 10px;
+                // background-color: $black-transparent70;
+                flex-grow: 1;
+                color: $primary-color;
+                text-overflow: ellipsis;
+                overflow: hidden;   
+                white-space: nowrap;   
+                text-align: center;
+
+                
+
+                span{
+                    font-size: 1.3rem;
+                    font-weight: 700;       
+                }
+                .buttons{
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 1.3rem;
+                    
+                    *{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
     }
+    
 }

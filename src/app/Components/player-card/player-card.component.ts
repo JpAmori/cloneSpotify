@@ -37,4 +37,16 @@ export class PlayerCardComponent implements OnInit, OnDestroy {
     })
     this.subs.push(sub)
   }
+
+  // dropMusic(){
+
+  // }
+
+  backMusic(){
+    this.playerService.goBackMusics();
+  }
+
+  nextMusic(){
+    this.playerService.goNextMusic();
+  }
 }

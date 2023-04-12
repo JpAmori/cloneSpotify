@@ -1,5 +1,15 @@
-<div class="container card p-10">
-    <div class="image" [style.background-image]="'url(' + music.album.imagemUrl + ')'">
-
+<div class="tudo">
+    <div class="container card p-10">
+        <div class="image" [style.background-image]="'url(' + music.album.imagemUrl + ')'"></div>
+        <div class="controls">
+            <span class="text">
+                {{music.title}}
+            </span>
+            <div class="buttons">
+                <fa-icon [icon]="backIcon" (click)="backMusic()"></fa-icon>
+                <fa-icon [icon]="playIcon" ></fa-icon>
+                <fa-icon [icon]="nextIcon" (click)="nextMusic()"></fa-icon>
+            </div>
+        </div>
     </div>
 </div>
