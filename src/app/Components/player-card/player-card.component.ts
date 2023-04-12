@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Icon, IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faPause, faPlay, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { newMusic } from 'src/app/Common/factories';
@@ -38,9 +39,13 @@ export class PlayerCardComponent implements OnInit, OnDestroy {
     this.subs.push(sub)
   }
 
-  // dropMusic(){
+  playMusic(){
+    this.playerService.goPlayMusic();
+  }
 
-  // }
+  pauseMusic(){
+    this.playerService.goPauseMusic();
+  }
 
   backMusic(){
     this.playerService.goBackMusics();

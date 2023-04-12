@@ -27,8 +27,10 @@ export class TopArtistComponent implements OnInit{
     }
   }
 
+
+
   touchArtist(){
-    
+    this.spotifyService.playMusicforArtist()
   }
 
 }

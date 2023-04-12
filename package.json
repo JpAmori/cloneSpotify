@@ -24,6 +24,7 @@
     "date-fns": "^2.29.3",
     "rxjs": "~7.8.0",
     "spotify-web-api-js": "^1.5.2",
+    "spotify-web-sdk": "^0.7.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },

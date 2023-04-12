@@ -22,6 +22,7 @@ export class ButtonMenuComponent implements OnInit {
 
   onClick(){
     this.click.emit();
+    console.log("Botão da Pesquisa");
   }
 
 }

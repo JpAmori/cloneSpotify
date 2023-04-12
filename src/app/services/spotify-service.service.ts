@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { SpotifyConfig } from 'src/environments/environment';
 import Spotify from 'spotify-web-api-js';
 import { IUser } from '../Interfaces/IUser';
-import { SpotifyArtistforArtist, SpotifyPlaylistforPlaylist, SpotifyTrackforTrack, SpotifyUserforUser } from '../Common/spotifyHelper';
+import { SpotifyArtistforArtist, SpotifyPlaylist, SpotifyPlaylistforPlaylist, SpotifyTrackforTrack, SpotifyUserforUser } from '../Common/spotifyHelper';
 import { IPlaylist } from '../Interfaces/IPlaylist';
 import { Route, Router } from '@angular/router';
 import { IArstist } from '../Interfaces/IArtist';
 import { IMusic } from '../Interfaces/IMusic';
+import { Artist, getArtistTopTracks } from 'spotify-web-sdk';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,22 @@ export class SpotifyServiceService {
     return playlists.items.map(SpotifyPlaylistforPlaylist);
   }
 
+  // Buscando Musicas de uma Playlist
+  async searchMusicsPlaylist(playlistId: string, offset = 0, limit = 50){
+    const playlistSpotify = await this.spotifyAPI.getPlaylist(playlistId);
+
+    if(!playlistSpotify){
+      return null;
+    }
+
+    const playlist = SpotifyPlaylist(playlistSpotify);
+
+    const musics = await this.spotifyAPI.getPlaylistTracks(playlistId, {offset, limit});
+    playlist.musics = musics.items.map(music => SpotifyTrackforTrack(music.track as SpotifyApi.TrackObjectFull));
+
+    return playlist;
+  }
+
   // Buscando os melhores artistas
   async searchTopArtists(limit = 5): Promise<IArstist[]>{
     const artists = await this.spotifyAPI.getMyTopArtists({limit})
@@ -101,7 +118,7 @@ export class SpotifyServiceService {
   }
 
   // Coletando as melhores musicas do artista
-  async playMusicforArtist(artistId: string){
+  async playMusicforArtist(){
     await this.spotifyAPI.getArtistTopTracks
   }
 
@@ -122,9 +139,14 @@ export class SpotifyServiceService {
     await this.spotifyAPI.skipToNext();
   }
 
-  // Verificar se há musica tocando
-  async checkMusic(){
-    
+  // Iniciando a Musica após o Pause
+  async goPlayMusic(){
+    await this.spotifyAPI.play();
+  }
+
+  // Pausando a Musica
+  async goPauseMusic(){
+    await this.spotifyAPI.pause();
   }
 
   // Saindo da Conta

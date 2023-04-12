@@ -15,9 +15,5 @@ export const appRoutes: Routes = [
     {
         path: 'login',
         loadChildren: () => import('./pages/login/login.module').then(x => x.LoginModule)
-    },
-    {
-        path: 'playlistMusics/:id',
-        loadChildren: () => import('./pages/playlist-musics/playlist-musics.module').then(x => x.PlaylistMusicsModule)
     }
 ]

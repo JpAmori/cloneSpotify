@@ -40,4 +40,12 @@ export class PlayerServiceService {
   async goNextMusic(){
     await this.spotifyService.goNextMusic();
   }
+
+  async goPlayMusic(){
+    await this.spotifyService.goPlayMusic();
+  }
+
+  async goPauseMusic(){
+    this.spotifyService.goPauseMusic();
+  }
 }

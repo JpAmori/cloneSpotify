@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { TopArtistsComponent } from 'src/app/Components/top-artists/top-artists.component';
 import { ArtistItensComponent } from 'src/app/Components/artist-itens/artist-itens.component';
 import { PlayerCardComponent } from 'src/app/Components/player-card/player-card.component';
+import { PlaylistMusicsComponent } from '../playlist-musics/playlist-musics.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { PlayerCardComponent } from 'src/app/Components/player-card/player-card.
     RecentSearchesComponent,
     TopArtistsComponent,
     ArtistItensComponent,
-    PlayerCardComponent
+    PlayerCardComponent,
+    PlaylistMusicsComponent
   ],
   imports: [
     CommonModule,
