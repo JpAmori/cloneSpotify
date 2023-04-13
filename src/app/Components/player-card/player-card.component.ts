@@ -1,5 +1,6 @@
+import { HtmlTagDefinition } from '@angular/compiler';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Icon, IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Icon, IconProp, icon } from '@fortawesome/fontawesome-svg-core';
 import { faPause, faPlay, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { newMusic } from 'src/app/Common/factories';
@@ -41,10 +42,18 @@ export class PlayerCardComponent implements OnInit, OnDestroy {
 
   playMusic(){
     this.playerService.goPlayMusic();
+    const iconPlay = document.getElementById('play');
+    const iconPause = document.getElementById('pause');
+    iconPlay.classList.toggle('hide');
+    iconPause.classList.remove('hide');
   }
 
   pauseMusic(){
     this.playerService.goPauseMusic();
+    const iconPlay = document.getElementById('play');
+    const iconPause = document.getElementById('pause');
+    iconPlay.classList.remove('hide');
+    iconPause.classList.toggle('hide');
   }
 
   backMusic(){
