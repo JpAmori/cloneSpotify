@@ -1,0 +1,27 @@
+@import 'table';
+@import 'variables';
+
+:host{
+    display: flex;
+    justify-content: space-between;
+
+    .list{
+        padding: 0px 50px;
+        width: 100%;
+        padding-bottom: 20px;
+        max-height: 100vh;
+        overflow-y: scroll;
+        
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
+
+    }
+
+    .rightpanel{
+        height: 100vh;
+        
+    }
+
+}

@@ -16,6 +16,7 @@ import { TopArtistsComponent } from 'src/app/Components/top-artists/top-artists.
 import { ArtistItensComponent } from 'src/app/Components/artist-itens/artist-itens.component';
 import { PlayerCardComponent } from 'src/app/Components/player-card/player-card.component';
 import { PlaylistMusicsComponent } from '../playlist-musics/playlist-musics.component';
+import { BannerComponent } from 'src/app/Components/banner/banner.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PlaylistMusicsComponent } from '../playlist-musics/playlist-musics.comp
     TopArtistsComponent,
     ArtistItensComponent,
     PlayerCardComponent,
-    PlaylistMusicsComponent
+    PlaylistMusicsComponent, 
+    BannerComponent
   ],
   imports: [
     CommonModule,

@@ -37,4 +37,9 @@ export class LeftPanelComponent implements OnInit {
     this.playlists = await this.spotifyService.searchPlaylists();
   }
 
+  goToPlaylist(playlistId: string){
+    this.menuSelected = playlistId;
+    this.route.navigateByUrl(`player/playlist/playlist/${playlistId}`)
+  }
+
 }

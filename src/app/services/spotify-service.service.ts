@@ -8,6 +8,7 @@ import { Route, Router } from '@angular/router';
 import { IArstist } from '../Interfaces/IArtist';
 import { IMusic } from '../Interfaces/IMusic';
 import { Artist, getArtistTopTracks } from 'spotify-web-sdk';
+import { StringIterator } from 'cypress/types/lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -95,7 +96,7 @@ export class SpotifyServiceService {
 
     const musics = await this.spotifyAPI.getPlaylistTracks(playlistId, {offset, limit});
     playlist.musics = musics.items.map(music => SpotifyTrackforTrack(music.track as SpotifyApi.TrackObjectFull));
-
+    
     return playlist;
   }
 
