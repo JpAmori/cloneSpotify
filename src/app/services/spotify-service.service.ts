@@ -7,8 +7,7 @@ import { IPlaylist } from '../Interfaces/IPlaylist';
 import { Route, Router } from '@angular/router';
 import { IArstist } from '../Interfaces/IArtist';
 import { IMusic } from '../Interfaces/IMusic';
-import { Artist, getArtistTopTracks } from 'spotify-web-sdk';
-import { StringIterator } from 'cypress/types/lodash';
+
 
 @Injectable({
   providedIn: 'root'
